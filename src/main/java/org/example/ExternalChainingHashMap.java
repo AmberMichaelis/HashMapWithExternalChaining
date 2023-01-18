@@ -91,7 +91,9 @@ public class ExternalChainingHashMap<K, V> {
                 entry.setValue(value);
                 return oldValue;
             } else {
-                entry.setNext(new ExternalChainingMapEntry<>(key, value));
+                ExternalChainingMapEntry<K, V> list = table[index];
+                table[index] = new ExternalChainingMapEntry<>(key, value);
+                table[index].setNext(list);
             }
         }
         size++;
